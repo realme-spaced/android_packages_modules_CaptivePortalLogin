@@ -559,21 +559,21 @@ public class CaptivePortalLoginActivityTest {
         final Method setVenueFriendlyNameMethod;
 
         setVenueFriendlyNameMethod = captivePortalDataBuilderClass.getDeclaredMethod(
-                "setVenueFriendlyNameMethod", String.class);
+                "setVenueFriendlyName", CharSequence.class);
 
         captivePortalDataBuilder = (CaptivePortalData.Builder)
-                setVenueFriendlyNameMethod.invoke(captivePortalDataBuilder,
-                        TEST_FRIENDLY_NAME);
+                setVenueFriendlyNameMethod.invoke(captivePortalDataBuilder, TEST_FRIENDLY_NAME);
 
         final CaptivePortalData captivePortalData = captivePortalDataBuilder.build();
         linkProperties.setCaptivePortalData(captivePortalData);
+
         when(sConnectivityManager.getLinkProperties(mNetwork)).thenReturn(linkProperties);
+        configNonVpnNetwork();
         initActivity("https://tc.example.com/");
 
         // Verify that the correct venue friendly name is used
-        assertEquals(mActivity.getActionBar().getTitle(),
-                getInstrumentation().getContext().getString(R.string.action_bar_title,
-                        TEST_FRIENDLY_NAME));
+        assertEquals(getInstrumentation().getContext().getString(R.string.action_bar_title,
+                TEST_FRIENDLY_NAME), mActivity.getActionBar().getTitle());
     }
 
     /**
