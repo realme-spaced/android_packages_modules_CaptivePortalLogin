@@ -23,6 +23,7 @@ android_test {
     defaults: ["framework-connectivity-test-defaults"],
     srcs: ["src/**/*.java", "src/**/*.kt"],
     platform_apis: true,
+    compile_multilib: "both",
     min_sdk_version: "29",
     target_sdk_version: "31", // Keep in sync with CaptivePortalLogin
     test_suites: ["general-tests", "mts-networking"],
